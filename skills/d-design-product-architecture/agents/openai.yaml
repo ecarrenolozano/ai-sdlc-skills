@@ -1,0 +1,3 @@
+interface:
+  display_name: "Product Architecture Design"
+  short_description: "Create and validate an arc42, C4, Structurizr, and ADR architecture baseline."

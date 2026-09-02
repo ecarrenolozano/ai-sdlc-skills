@@ -1,0 +1,11 @@
+interface:
+  display_name: "Implementation Pull Request"
+  short_description: "Create PRs for validated implementation work."
+  default_prompt: "Create a pull request proposal for the validated implementation work in this repository."
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

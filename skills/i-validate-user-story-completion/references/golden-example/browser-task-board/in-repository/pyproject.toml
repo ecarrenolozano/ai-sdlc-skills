@@ -1,0 +1,14 @@
+[project]
+name = "browser-task-board-before-bdd-example"
+version = "0.1.0"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4",
+  "pytest-bdd>=8,<9",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+bdd_features_base_dir = "tests/validation/features"

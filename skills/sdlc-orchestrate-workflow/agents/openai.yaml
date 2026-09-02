@@ -1,0 +1,11 @@
+interface:
+  display_name: "SDLC Workflow Orchestrator"
+  short_description: "Guide SDLC skill routing and trace workflow status."
+  default_prompt: "Inspect the workflow trace and recommend the next SDLC skill."
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

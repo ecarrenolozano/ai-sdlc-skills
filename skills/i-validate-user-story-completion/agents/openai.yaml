@@ -1,0 +1,11 @@
+interface:
+  display_name: "User Story Completion Validation"
+  short_description: "Validate stories with BDD and pytest-bdd."
+  default_prompt: "Validate implemented user stories with BDD scenarios and update workflow traceability."
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

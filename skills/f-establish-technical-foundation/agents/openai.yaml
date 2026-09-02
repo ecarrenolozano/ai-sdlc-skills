@@ -1,0 +1,10 @@
+interface:
+  display_name: "Technical Foundation Establishment"
+  short_description: "Create an approved pytest-based repository foundation without implementing product behavior."
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

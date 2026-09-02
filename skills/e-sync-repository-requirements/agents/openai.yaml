@@ -1,0 +1,10 @@
+interface:
+  display_name: Repository Requirements Sync
+  short_description: Safely maps approved requirements to GitHub work.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

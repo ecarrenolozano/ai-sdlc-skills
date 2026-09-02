@@ -1,0 +1,1 @@
+"""Browser Task Board package."""

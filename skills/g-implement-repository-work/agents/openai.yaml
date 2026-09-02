@@ -1,0 +1,10 @@
+interface:
+  display_name: "Repository Work Implementation"
+  short_description: "Prioritize unresolved issues or implement one approved issue with code design, Ping-Pong TDD, and local status tracking."
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

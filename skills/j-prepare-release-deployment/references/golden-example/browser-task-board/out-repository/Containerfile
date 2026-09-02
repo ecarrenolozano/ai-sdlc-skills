@@ -1,0 +1,6 @@
+FROM python:3.14-slim
+
+WORKDIR /app
+COPY . /app
+
+CMD ["python", "-m", "browser_task_board", "--host", "127.0.0.1"]

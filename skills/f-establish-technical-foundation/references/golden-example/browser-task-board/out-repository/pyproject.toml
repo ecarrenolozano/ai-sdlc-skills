@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "todo-board-ssc"
+version = "0.1.0"
+description = "A local browser task board developed with an approval-gated SDLC workflow."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+  "flask>=3.1,<4",
+]
+
+[dependency-groups]
+dev = [
+  "coverage[toml]>=7.9,<8",
+  "hatchling>=1.27,<2",
+  "mypy>=1.16,<2",
+  "pre-commit>=4.2,<5",
+  "pytest>=8.4,<9",
+  "pytest-bdd>=8,<9",
+  "pytest-cov>=6.2,<7",
+  "ruff>=0.12,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/todo_board_ssc"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+  "--import-mode=importlib",
+  "--strict-config",
+  "--strict-markers",
+]
+markers = [
+  "unit: isolated unit tests",
+  "integration: tests involving multiple real components",
+  "regression: tests protecting a confirmed defect",
+  "validation: approved behavior scenarios executed through pytest-bdd",
+  "browser: tests requiring browser automation",
+  "slow: tests excluded from the fastest feedback cycle",
+]
+bdd_features_base_dir = "tests/validation/features"
+
+[tool.coverage.run]
+branch = true
+source = ["todo_board_ssc"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "src"

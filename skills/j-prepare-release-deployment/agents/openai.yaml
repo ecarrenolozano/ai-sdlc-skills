@@ -1,0 +1,11 @@
+interface:
+  display_name: "Release Deployment Preparation"
+  short_description: "Prepare release and deployment work safely."
+  default_prompt: "Prepare a release/deployment proposal for this repository."
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

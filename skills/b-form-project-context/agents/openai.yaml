@@ -1,0 +1,3 @@
+interface:
+  display_name: "Project Context Formation"
+  short_description: "Form an evidence-grounded project context from an approved request"
