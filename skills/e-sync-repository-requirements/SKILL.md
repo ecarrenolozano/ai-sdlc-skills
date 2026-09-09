@@ -96,6 +96,8 @@ Before proposing any remote mutation, verify enough current repository context t
 
 - open and closed issues;
 - issue templates, issue forms, and `CONTRIBUTING.md`;
+- local repository convention templates such as `repository_templates/issue.md`
+  and `repository_templates/change_request.md`;
 - recent issue conventions;
 - GitHub Projects and available workflow fields or columns;
 - the intended project destination;
@@ -190,6 +192,10 @@ Include architecture references only when they provide operational value. Use st
 ### 8. Respect repository templates and conventions
 
 Select the compatible issue template or issue form based on the work itself, not only its filename. Show the selected template and any missing fields in the proposal.
+
+Also inspect local convention templates before drafting issue or pull-request text. When `repository_templates/issue.md` exists, adapt proposed issue bodies to its headings and stable fields unless it conflicts with approved requirements or remote GitHub issue forms. When `repository_templates/change_request.md` exists, report it as the pull-request convention but do not use it for issue bodies.
+
+Treat `repository_templates/` as the canonical local template source. Do not create `.github/`, copy templates into `.github/ISSUE_TEMPLATE`, or keep duplicate template copies as part of this synchronization workflow unless the human explicitly approves repository-template installation as a separate repository-maintenance change.
 
 Do not modify repository templates. Do not invent values for priority, estimate, assignee, target release, or other unsupported fields.
 

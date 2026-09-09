@@ -6,7 +6,7 @@ Use this reference to choose the least disruptive action.
 
 ### No matching issue
 
-Propose a new issue only after verifying open and closed issues, related repositories, templates, project destination, and automation effects. State the exact missing approved work and why no existing issue can represent it.
+Propose a new issue only after verifying open and closed issues, related repositories, remote templates or forms, local convention templates such as `repository_templates/issue.md`, project destination, and automation effects. State the exact missing approved work and why no existing issue can represent it.
 
 ### One issue fully covers a story
 
