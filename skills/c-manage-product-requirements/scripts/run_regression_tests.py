@@ -236,6 +236,32 @@ def test_trace_mutation_guard() -> None:
         require(forbidden_code == 1, f"Unauthorized trace mutation was accepted: {forbidden_payload}")
 
 
+def test_architecture_handoff_permissions() -> None:
+    before = GOLDEN / "initial-release" / "in-trace_workflow.md"
+    after = GOLDEN / "initial-release" / "out-trace_workflow.md"
+    allowances = []
+    for row, fields in {
+        "Initial requirements": ["Status", "Current activity", "Evidence", "Missing or blocked", "Next action"],
+        "Repository preparation": ["Current activity", "Evidence", "Missing or blocked", "Next action"],
+        "Architecture": ["Current activity", "Evidence", "Missing or blocked", "Next action"],
+    }.items():
+        for field in fields:
+            allowances.extend(["--allow-field", f"{row}:{field}"])
+    command = [sys.executable, str(TRACE_VALIDATOR), str(before)]
+    code, payload = run(command + [str(after)] + allowances)
+    require(code == 0, f"Approved handoff rejected: {payload}")
+    for old, new in [
+        ("| Architecture | Initial Release | Not Started |", "| Architecture | Initial Release | Complete |"),
+        ("| Project context | Foundation | Complete |", "| Project context | Foundation | In Progress |"),
+    ]:
+        path = write_mutation(after, lambda text: text.replace(old, new))
+        try:
+            code, payload = run(command + [str(path)] + allowances)
+            require(code == 1, f"Handoff crossed ownership boundary: {payload}")
+        finally:
+            path.unlink(missing_ok=True)
+
+
 def test_workflow_alignment() -> None:
     code, payload = run([
         sys.executable,
@@ -259,6 +285,7 @@ def main() -> int:
         test_compound_story_rejected,
         test_observed_silent_behavior_fixture_rejected,
         test_trace_mutation_guard,
+        test_architecture_handoff_permissions,
         test_workflow_alignment,
     ]
     results: list[dict[str, str]] = []

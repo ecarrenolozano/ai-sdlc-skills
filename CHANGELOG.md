@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+* Refresh unstarted Architecture readiness fields after initial requirements approval while preserving stage status and ownership boundaries.
+* Detect the stale approved-requirements blocker in workflow trace validation and cover the handoff with regression tests.
+
 ### Added
 
 * Initial repository structure for the AI-assisted SDLC skills collection.

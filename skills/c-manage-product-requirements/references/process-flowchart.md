@@ -99,7 +99,7 @@ flowchart TD
     C69 -->|No| C70[70. Save product_requirements.md]
     C70 --> MODEEND{Active mode?}
     MODEEND -->|Initial release| C71[71. Guarded completion of Initial requirements]
-    C71 --> C72[72. Guarded Repository preparation handoff fields]
+    C71 --> C72[72. Guarded Repository preparation and unstarted Architecture handoff fields]
     MODEEND -->|Product increment| C73[73. Guarded handoff of active increment row]
     C72 --> C74[74. Preserve unrelated rows and unauthorized fields]
     C73 --> C74
