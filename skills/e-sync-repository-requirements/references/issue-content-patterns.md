@@ -1,6 +1,10 @@
 # Issue Content Patterns
 
-Use the repository's compatible issue template when available. These patterns are fallbacks and examples, not a second mandatory template system.
+Use the repository's compatible issue template when available. Inspect both remote GitHub issue templates/forms and local convention templates such as `repository_templates/issue.md`.
+
+When `repository_templates/issue.md` exists, adapt new issue bodies to that file's headings and stable fields unless a remote GitHub issue form requires different fields. Use the local template in place; do not copy it into `.github/ISSUE_TEMPLATE` and do not create a second template copy during repository synchronization.
+
+These patterns are fallbacks and examples, not a second mandatory template system.
 
 ## New issue for one approved story
 

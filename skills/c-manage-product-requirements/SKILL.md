@@ -282,7 +282,7 @@ Also record the exact validator command and `Scope validator report synchronized
 69. If another unapproved requirement remains in the active scope, return to Step 20.
 70. Save `sdlc_docs/01_requirements/product_requirements.md`.
 71. If the mode is `initial release`, update only authorized fields of `Initial requirements` to `Complete`, activity `Product Requirements Management`, evidence pointing to the approved Product Requirements, `Missing or blocked: None`, and `Next action: Run d-design-product-architecture`; apply the Traceability Mutation Guard before saving.
-72. If the mode is `initial release`, update only the authorized handoff fields of `Repository preparation`: leave `Item`, `Type`, and `Status` unchanged; set activity `Product Architecture Design`, evidence pointing to the approved Product Requirements, the missing architecture work, and `Next action: Run d-design-product-architecture`; apply the Traceability Mutation Guard before saving.
+72. If the mode is `initial release`, update only the authorized handoff fields of `Repository preparation`: leave `Item`, `Type`, and `Status` unchanged; set activity `Product Architecture Design`, evidence pointing to the approved Product Requirements, the missing architecture work, and `Next action: Run d-design-product-architecture`; also refresh the existing `Architecture` row only when its status is `Not Started`: set activity `Product Architecture Design`, evidence pointing to the approved Product Requirements, `Missing or blocked: Architecture baseline not created`, and `Next action: Run d-design-product-architecture`. Preserve its `Item`, `Type`, and `Status`. If the row is absent, report the structural gap to the orchestrator instead of adding it; if architecture has already started, preserve its fields and evidence. Apply the Traceability Mutation Guard before saving.
 73. If the mode is `product increment`, update only authorized fields of the active increment row: keep `Status` as `In Progress`, set activity `Repository Synchronization` when there is no material architectural impact, or `Product Architecture Design` when there is material architectural impact. Record the approved requirement and stories as evidence, record the pending handoff, and set `Next action` to `Run e-sync-repository-requirements` when no architecture change is needed or `Run d-design-product-architecture` when material architecture work is needed; apply the Traceability Mutation Guard before saving.
 74. Preserve every unrelated row and every field outside the authorized mutation set.
 75. Deliver the approved Product Requirements as input to `d-design-product-architecture` for the initial workflow. For an approved increment with no material architectural impact, deliver the approved requirement to `e-sync-repository-requirements`; when material architectural impact exists, route through `d-design-product-architecture` before synchronization.
@@ -318,7 +318,9 @@ A valid approval requires:
 - `Initial requirements`: `Status`, `Current activity`, `Evidence`, `Missing or blocked`, and `Next action`.
 - `Repository preparation`, only after all active initial-release requirements are validly approved: `Current activity`, `Evidence`, `Missing or blocked`, and `Next action`.
 
-It must not change `Repository preparation` status.
+- `Architecture`, only after all active initial-release requirements are validly approved and only while the existing row is `Not Started`: `Current activity`, `Evidence`, `Missing or blocked`, and `Next action`.
+
+It must not change `Architecture` or `Repository preparation` status.
 
 ### Product Increment
 
@@ -341,7 +343,10 @@ For an initial-release handoff, authorize only:
 ```text
 Initial requirements: Status, Current activity, Evidence, Missing or blocked, Next action
 Repository preparation: Current activity, Evidence, Missing or blocked, Next action
+Architecture: Current activity, Evidence, Missing or blocked, Next action
 ```
+
+Include the Architecture allowances only for an existing `Not Started` row. Pass each allowed pair separately as `--allow-field "Architecture:Current activity"`, `--allow-field "Architecture:Evidence"`, `--allow-field "Architecture:Missing or blocked"`, and `--allow-field "Architecture:Next action"`; never authorize `Architecture:Status`.
 
 For an increment, authorize only the active increment row fields:
 

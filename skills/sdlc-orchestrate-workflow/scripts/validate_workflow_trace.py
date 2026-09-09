@@ -122,6 +122,17 @@ def validate(path: Path, require_expected_rows: bool) -> dict[str, Any]:
                 errors.append(f"{item}: unknown skill identifier in Next action: {match}")
 
     row_by_name = {row["Item"]: row for row in rows}
+    architecture = row_by_name.get("Architecture", {})
+    if (
+        row_by_name.get("Initial requirements", {}).get("Status") == "Complete"
+        and architecture.get("Missing or blocked", "").strip().casefold().rstrip(".")
+        == "approved requirements missing"
+    ):
+        errors.append(
+            "Architecture: stale blocker 'Approved requirements missing' contradicts "
+            "completed Initial requirements; review approved requirements evidence "
+            "before repairing the handoff"
+        )
     implementation_status = row_by_name.get("Implementation", {}).get("Status")
     validation_status = row_by_name.get("User story validation", {}).get("Status")
     pull_request_status = row_by_name.get("Pull request", {}).get("Status")

@@ -1,0 +1,11 @@
+interface:
+  display_name: GitHub Project Board Setup
+  short_description: Recreate and link SDLC GitHub Project boards.
+  default_prompt: Create or inspect an SDLC GitHub Project board for this repository.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
