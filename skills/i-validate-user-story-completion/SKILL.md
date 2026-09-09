@@ -19,6 +19,7 @@ Confirm that implemented user stories satisfy approved acceptance criteria throu
 - Use pytest-bdd step definitions under `tests/validation/steps/`.
 - Map every selected acceptance criterion to at least one scenario or record why it cannot yet be validated.
 - Preserve acceptance-criterion meaning. Do not add product behavior, validation rules, error handling, roles, data, or workflows not approved upstream.
+- Preserve prior BDD scenario mappings and validation evidence for stories later marked `Superseded` or `Retired`. Add or update validation for the new active story IDs instead of overwriting historical evidence, unless a human explicitly approves archival cleanup.
 - Keep BDD validation separate from implementation TDD. Route missing implementation behavior to `g-implement-repository-work`.
 - Use `pytest` and `pytest-bdd`; do not introduce `unittest.TestCase`.
 - Require explicit approval of the visible validation proposal before local writes.

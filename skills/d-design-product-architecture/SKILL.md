@@ -15,6 +15,7 @@ Create the smallest architecture baseline sufficient to guide implementation, co
 - Treat `sdlc_docs/00_inception/project_context.md`, `sdlc_docs/01_requirements/product_requirements.md`, and `sdlc_docs/trace_workflow.md` as authoritative inputs.
 - Start only when Project Context and Product Requirements are approved, unresolved requirement questions equal zero, and Initial requirements are `Complete`.
 - Never change approved Project Context or Product Requirements.
+- When evolving an approved architecture after a product change, preserve the prior approved architecture baseline and ADR history as self-contained current documentation with status and replacement relationship metadata. Do not replace a prior approved baseline with only a summary or require readers to recover approved architecture decisions from git history.
 - Preserve all twelve official arc42 root sections and their order. Use `references/arc42-guidance.md` and `references/architecture-template.md`.
 - Keep workflow extensions outside the numbered arc42 sections.
 - Create or update `sdlc_docs/02_architecture/README.md`; it must identify `d-design-product-architecture` and accurately describe the views that exist.

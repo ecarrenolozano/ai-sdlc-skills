@@ -144,6 +144,10 @@ Never create:
 
 Before proposing architecture-derived technical issues, explicitly justify why the work should not be handled by `f-establish-technical-foundation` or by an existing approved issue after foundation completion.
 
+### 5a. Preserve superseded work traceability
+
+When approved requirements or stories are superseded or retired, preserve existing repository references and issue history as historical traceability. Do not propose deleting, replacing, or compressing the old requirement, story, issue reference, or completed issue. Create or update only the repository issue needed for the new uncovered behavior, and keep links between the old approved IDs and their historical issue state in the Product Requirements document.
+
 ### 6. Analyze Triage without relying on labels
 
 Classify an issue from its content, approved product behavior, architecture, and current repository context. Do not bind classification to labels.

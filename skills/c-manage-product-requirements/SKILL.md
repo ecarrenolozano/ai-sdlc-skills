@@ -105,7 +105,9 @@ An approved requirement is immutable.
 
 - Do not rewrite its description, stories, acceptance criteria, source, or approval record.
 - Create a new requirement for a later approved product change.
-- Preserve retired requirements and IDs as history.
+- Preserve retired or superseded requirements and IDs as history.
+- Keep retired or superseded approved content self-contained in the current Product Requirements document. Preserve the full requirement text, user-story text, acceptance criteria, source mappings, capability mappings, repository references, validation reports, and approval metadata. Mark the content as `Retired` or `Superseded` only by adding status and relationship metadata; do not replace it with a summary or require readers to recover what was approved from git history.
+- When later behavior supersedes approved behavior, create new REQ, US, SRC, and CAP identifiers for the new behavior and keep the prior approved identifiers and sections intact.
 - Never reuse an existing REQ or US identifier.
 
 ## Repository Representation Rules
@@ -133,6 +135,7 @@ Requirement statuses:
 - `Under Clarification`
 - `Pending Approval`
 - `Approved`
+- `Superseded`
 - `Retired`
 
 User story statuses:
@@ -140,6 +143,7 @@ User story statuses:
 - `Draft`
 - `Pending Approval`
 - `Approved`
+- `Superseded`
 - `Retired`
 
 Repository states recorded in the document:
@@ -224,7 +228,7 @@ Also record the exact validator command and `Scope validator report synchronized
 15. Verify that the corresponding active increment row exists in `trace_workflow.md`.
 16. If imported evidence or the active increment row is missing, stop and report the exact missing input.
 17. Update only authorized fields of the active increment row to `In Progress`, activity `Requirements Refinement`, evidence pointing to the imported requirement and source issue, the current clarification or approval gap, and `Next action: Continue c-manage-product-requirements`; apply the Traceability Mutation Guard before saving.
-18. Preserve all approved requirements, stories, criteria, identifiers, source rows, capability rows, and approval records unchanged.
+18. Preserve all approved requirements, stories, criteria, identifiers, source rows, capability rows, repository references, validation reports, and approval records unchanged. This includes approved content later marked `Superseded` or `Retired`; only status and explicit replacement/retirement relationship metadata may be added.
 19. Set the mode to `Product increment` and continue to Step 20.
 20. Select the next unapproved requirement in the active scope; review one requirement at a time unless the user explicitly requests a batch.
 21. Extract every controlling confirmed included source statement for the active scope; for an initial release use `Included High-Level Capabilities` when present and use the other approved sections as consistency evidence.
@@ -427,7 +431,7 @@ Before requesting approval or completing the active scope, verify:
 - no source statement or capability is silently omitted, deferred, or excluded;
 - every `Deferred` or `Excluded` disposition has an explicit approved decision and evidence;
 - every active requirement and story has a source or evidence basis;
-- approved requirements and identifiers remain unchanged;
+- approved requirements, stories, criteria, identifiers, source rows, capability rows, repository references, validation reports, and approval records remain self-contained and unchanged except allowed status or relationship metadata for `Superseded` and `Retired` content;
 - every US belongs to exactly one primary REQ;
 - REQ, US, SRC, and CAP identifiers are unique and never reused;
 - every story expresses one independently observable user outcome unless explicit approved-grouping evidence exists;

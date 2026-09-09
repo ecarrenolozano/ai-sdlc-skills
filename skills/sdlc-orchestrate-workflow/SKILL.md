@@ -20,6 +20,7 @@ Guide the developer continuously while keeping workflow ceremony behind the scen
 - Allow controlled overlap between `Implementation` and `User story validation` when both are `In Progress` and validation evidence is limited to implemented story subsets.
 - Allow controlled overlap between `Implementation` and `Pull request` when the pull request is opened for iterative review and downstream release gating remains inactive.
 - Allow controlled overlap between `Implementation` and `Release deployment` when deployment work is limited to approved local release-preparation evidence.
+- When routing a change that supersedes approved scope, require the owning stage to preserve prior approved artifacts as self-contained history in the current controlled documents. Do not route in a way that depends on downstream agents recovering approved content from git history alone.
 
 ## Control Loop
 
