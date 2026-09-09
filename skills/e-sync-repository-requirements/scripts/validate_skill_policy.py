@@ -14,7 +14,7 @@ REQUIRED_PHRASES = {
     "no_delete": "Never delete an issue",
     "no_close": "Never close or reopen an issue",
     "no_labels": "Do not manage labels.",
-    "no_subissue_write": "Do not create or modify subissue relationships.",
+    "controlled_subissue_write": "Create or modify subissue relationships only under the explicit subissue policy.",
     "no_persistent_sync": "Do not create persistent synchronization documents or statistics.",
     "no_context_no_create": "Do not create an issue without sufficient remote context.",
     "minimal_creation": "Reuse work before creating work",

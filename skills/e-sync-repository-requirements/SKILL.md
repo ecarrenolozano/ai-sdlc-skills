@@ -33,7 +33,7 @@ Avoid turning architecture into a duplicate technical backlog. When approved pro
 - Do not manage labels. Read labels only as non-authoritative context; never create, add, remove, or depend on them for routing.
 - Do not assign people, priorities, milestones, releases, or sprint membership unless a future explicitly authorized workflow owns those actions.
 - Do not move an external issue into or out of `Triage`. Triage remains human-controlled.
-- Do not create or modify subissue relationships. The subissue policy is intentionally unresolved; inspect existing hierarchy only as context and report it without changing it.
+- Create or modify subissue relationships only under the explicit subissue policy. Inspect existing hierarchy as context and change it only after the exact parent issue, child issues, relationship direction, and fallback behavior are shown and approved.
 - Do not create persistent synchronization documents or statistics.
 - Do not invoke another skill automatically. Recommend the full next skill identifier and stop.
 
@@ -119,7 +119,7 @@ Compare approved stories and acceptance criteria with current remote work. Suppo
 
 Evaluate coverage criterion by criterion. Do not require one canonical issue per story. Do not create a coordinator issue merely to force a one-to-one mapping.
 
-Inspect existing subissue hierarchy as remote context, but do not infer that every child belongs to the same approved scope and do not change the hierarchy.
+Inspect existing subissue hierarchy as remote context, but do not infer that every child belongs to the same approved scope.
 
 ### 5. Reuse work before creating work
 
@@ -149,6 +149,29 @@ Before proposing architecture-derived technical issues, explicitly justify why t
 ### 5a. Preserve superseded work traceability
 
 When approved requirements or stories are superseded or retired, preserve existing repository references and issue history as historical traceability. Do not propose deleting, replacing, or compressing the old requirement, story, issue reference, or completed issue. Create or update only the repository issue needed for the new uncovered behavior, and keep links between the old approved IDs and their historical issue state in the Product Requirements document.
+
+### 5b. Controlled subissue relationships
+
+Use GitHub subissues only when the developer explicitly requests parent-child issue planning or the repository already uses subissues for comparable approved work. Do not introduce subissues merely because multiple approved stories exist.
+
+Before proposing subissue creation or relationship changes, verify:
+
+- GitHub exposes readable and writable subissue capability for the target repository.
+- The parent issue represents a coherent approved product slice, requirement, or implementation increment.
+- Each child issue represents approved work that can be reviewed independently.
+- Every parent and child issue body remains useful on its own, with stable requirement, story, and architecture references.
+- Existing issue hierarchy does not already represent the same relationship.
+- No child issue is attached to more than one proposed parent unless GitHub and repository conventions explicitly support it.
+
+For every proposed subissue operation, show:
+
+- the parent issue title or number;
+- each child issue title or number;
+- whether the operation creates a child issue, links an existing issue as a child, or removes/replaces no relationship;
+- the exact order of creation and linking;
+- what will happen if issue creation succeeds but subissue linking fails.
+
+Require explicit approval for subissue creation and relationship writes separately from issue body creation and Project placement. If subissue capability or permissions cannot be verified, propose normal issues with clear traceability instead of parent-child relationships.
 
 ### 6. Analyze Triage without relying on labels
 
@@ -242,6 +265,7 @@ Include:
 - duplicates, overlaps, conflicts, and uncertainties;
 - exact issues to reuse or minimally update;
 - every proposed new issue with a necessity justification;
+- every proposed subissue relationship with parent, child, operation, and fallback behavior;
 - exact body edits or comments;
 - repository, project, destination, and automation effects;
 - actions explicitly not included.
@@ -274,6 +298,7 @@ Apply approved writes one at a time. Read back every result.
 - Retry once only for a clearly transient transport failure when duplicate creation is impossible.
 - Do not retry automatically after conflicts, permission failures, ambiguous results, changed destinations, or new duplicates.
 - Do not move, assign, label, close, reopen, or comment unless that exact action was separately shown and approved.
+- Do not create, link, unlink, or reorder subissues unless that exact relationship operation was separately shown and approved.
 
 Report partial results precisely and request a new decision only for unresolved actions.
 

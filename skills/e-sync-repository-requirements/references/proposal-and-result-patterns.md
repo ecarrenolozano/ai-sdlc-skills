@@ -64,6 +64,34 @@ Recommendation: use the same issue as the source for c-manage-product-requiremen
 No issue content, project placement, labels, comments, or requirements will be changed in this step.
 ```
 
+## Proposal With Subissues
+
+Use this only when the developer explicitly requested subissues or the repository already uses them for comparable work.
+
+```markdown
+I inspected the approved requirements and the current GitHub state.
+
+### Proposed hierarchy
+
+Parent issue:
+- Create `REQ-0002 - CSV validation update`
+
+Child issues:
+- Create `US-0006 - Read a CSV file` and link it as a subissue of the parent.
+- Reuse #18 and link it as a subissue of the parent.
+
+Subissue fallback: if issue creation succeeds but subissue linking fails, keep the created issues, report the failed relationship operation, and request a new decision. No issue will be deleted, closed, or replaced.
+
+### Required approvals
+
+Approval is requested for:
+- issue creation;
+- Project placement;
+- subissue relationship writes.
+
+No labels, assignments, milestones, comments, closures, or unrelated issue body edits are included.
+```
+
 ## Multiple possible matches
 
 ```markdown
@@ -102,6 +130,7 @@ Execution result:
 - Action 1 completed: #12 now contains the approved managed section; read-back verified.
 - Action 2 completed: #34 created and added to Product Backlog; read-back verified.
 - Action 3 stopped: a new possible duplicate #35 appeared before creation.
+- Action 4 completed: #35 was linked as a subissue of #34; read-back verified.
 
 No completed action was rolled back. No replacement issue was created. A new decision is required only for Action 3.
 ```

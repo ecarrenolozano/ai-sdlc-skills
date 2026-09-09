@@ -115,3 +115,13 @@ Before proposing any issue, answer all of these:
 9. Is the new issue independently useful rather than administrative noise?
 
 Do not propose creation when any required answer is unknown.
+
+## Subissue decisions
+
+Use subissues only when the developer explicitly requests a parent-child issue structure or the repository already uses that structure for comparable approved work.
+
+Prefer a parent issue when it represents a coherent implementation slice, requirement, or product increment, and child issues represent approved work that can be reviewed independently. Prefer normal peer issues when parent-child hierarchy would only mirror documentation structure without improving planning or review.
+
+Before proposing subissues, verify current GitHub support and permissions, inspect existing hierarchy, and identify duplicate parent-child relationships. If support is unknown, propose normal issues with traceability instead.
+
+Do not create placeholder parent issues, empty tracking parents, or child issues that contain only a link to another document. Do not make one subissue per acceptance criterion unless each criterion is independently reviewable work.
