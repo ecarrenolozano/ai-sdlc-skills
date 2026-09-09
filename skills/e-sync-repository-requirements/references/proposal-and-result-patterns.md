@@ -42,6 +42,18 @@ New issue justification: US-0003 contains concrete approved work that is not rep
 Approve all changes, approve selected numbered actions, or reject the proposal.
 ```
 
+## Board-first stop
+
+```markdown
+I inspected the approved requirements and the current GitHub state.
+
+The target repository has no verified repository-linked GitHub Project. I found account-level Projects, but none is proven to govern this repository, so I will not use them for placement.
+
+Because board-first planning is preferred, repository synchronization should stop here and the next action is to create or link a repository board with `create-github-project-board`. No issues, project items, labels, comments, requirements, or trace files will be created or changed in this step.
+
+After the board exists and is linked to the repository, resume repository synchronization so the approved issues can be created and placed in the correct backlog column.
+```
+
 ## Proposal for a Triage issue
 
 ```markdown
@@ -79,6 +91,8 @@ Missing context:
 - open and closed issue search
 - project automation rules
 ```
+
+Use this pattern for missing read access, ambiguous remote state, or unknown operational effects. When the repository state is readable and the only missing item is a repository-linked board, prefer the board-first stop pattern if the developer wants board-first planning.
 
 ## Execution result
 

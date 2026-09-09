@@ -201,7 +201,9 @@ Do not modify repository templates. Do not invent values for priority, estimate,
 
 ### 9. Determine the exact destination and effects
 
-Inspect the repository's actual GitHub Project workflow. Use this default conceptual flow only as a comparison, not as an instruction to rename the project:
+Inspect the repository's actual GitHub Project workflow. A Project is repository-linked only when current GitHub state proves that it is associated with the target repository or already contains target-repository items. Account-level or organization-level Projects with similar names, empty template boards, or unlinked boards are not repository-linked Projects. Report them only as unverified account context unless another source proves they govern the repository.
+
+Use this default conceptual flow only as a comparison, not as an instruction to rename the project:
 
 ```text
 New Issues -> Triage -> Icebox -> Product Backlog -> Sprint Backlog -> In Progress -> Review/QA -> Done
@@ -210,6 +212,8 @@ New Issues -> Triage -> Icebox -> Product Backlog -> Sprint Backlog -> In Progre
 For issues created from already approved requirements, recommend `Product Backlog` or the repository's equivalent because product and architecture review have already occurred. Do not route them through `Triage` again.
 
 For externally created issues, preserve the repository's intake flow. Do not move them into or out of `Triage`.
+
+If no repository-linked GitHub Project exists and the developer prefers board-first planning or asks to create/place issues on a board, recommend `create-github-project-board` and stop before drafting or proposing issue creation. Do not create issues without placement as a fallback in that case. After the board is created and linked, resume repository synchronization, re-inspect the Project workflow, and then propose issue creation with placement.
 
 Before approval, show:
 
@@ -222,7 +226,7 @@ Before approval, show:
 
 When the destination or effects are uncertain, do not create or modify the issue.
 
-If no repository-linked GitHub Project exists and the developer wants a board before issue creation or placement, recommend `create-github-project-board` and stop. Do not create or configure a Project from this synchronization skill. After the board is created and linked, resume repository synchronization and re-inspect the Project workflow before proposing issue placement.
+If the developer explicitly approves issue creation without board placement after being told no repository-linked board exists, issue creation may proceed without placement. The proposal must state that no repository-linked Project was verified, no account-level board will be used, and a later board may require separate placement work.
 
 ### 10. Present a transient proposal
 
