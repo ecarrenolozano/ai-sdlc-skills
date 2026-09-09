@@ -1,0 +1,128 @@
+---
+name: create-github-project-board
+description: Recreate an SDLC GitHub Projects v2 board for a repository from an explicit board specification, including status flow and optional Triage, while requiring approval before every remote mutation. Use when a developer wants a GitHub Project board created or linked for SDLC issue planning. Do not create or modify product issues, labels, milestones, pull requests, requirements, architecture, or implementation work.
+---
+
+# GitHub Project Board Creation
+
+## Purpose
+
+Create a GitHub Projects v2 board for an SDLC-managed repository without copying an existing board. The skill should recreate the board from an explicit, visible specification so the developer can review the workflow before any remote state changes.
+
+## Board Baseline
+
+Use this baseline when the developer asks for a board like the existing `Final Project` board:
+
+- Project visibility: ask or infer from the reference request; do not assume private or public when it matters.
+- Status field: `New Issues`, `Icebox`, `Product Backlog`, `Sprint backlogs`, `In progress`, `Review/QA`, `Done`.
+- Priority field: `P0`, `P1`, `P2`.
+- Size field: `XS`, `S`, `M`, `L`, `XL`.
+- Estimate field: number.
+- Start date field: date.
+- End date field: date.
+- Sprint field: iteration when supported by the available tool/API.
+
+GitHub Projects includes built-in fields such as Title, Assignees, Labels, Milestone, Repository, Reviewers, linked pull requests, and timestamps. Inspect the created board before proposing additional fields so duplicates are not created.
+
+## Triage Strategy
+
+Prefer a distinct `Triage` status when the repository expects external or unapproved intake. The recommended status flow is:
+
+```text
+New Issues -> Triage -> Icebox -> Product Backlog -> Sprint backlogs -> In progress -> Review/QA -> Done
+```
+
+Use the statuses this way:
+
+- `New Issues`: automatic or newly discovered intake that has not been reviewed.
+- `Triage`: human review of unclear, external, duplicate, out-of-scope, or product-changing work.
+- `Icebox`: accepted but deliberately deferred work.
+- `Product Backlog`: approved requirements or ready technical work not yet selected for a sprint.
+- `Sprint backlogs`: selected work for upcoming or current iteration planning.
+- `In progress`: active implementation or documentation work.
+- `Review/QA`: review, validation, or acceptance work.
+- `Done`: completed work after the repository's acceptance criteria are satisfied.
+
+If the developer asks for an exact recreation of a board that has no `Triage` status, propose both options: exact status recreation and status recreation with `Triage` inserted after `New Issues`. Do not add `Triage` without explicit approval.
+
+## Required Inspection
+
+Before proposing a board creation, inspect:
+
+- the authenticated GitHub account and required `project` scope;
+- the target owner and whether it is a user or organization;
+- the target repository and whether it is the correct operational tracker;
+- existing user or organization Projects with similar names;
+- Projects already linked to the target repository;
+- the current `gh project` capabilities or GraphQL API support available in the environment;
+- any project or workflow guidance in repository docs, especially `README.md`, `CONTRIBUTING.md`, `sdlc_docs/`, and `repository_templates/`.
+
+Read-only inspection does not require human approval. Network commands may still require runtime tool approval.
+
+## Approval Boundary
+
+Require explicit human approval before every remote mutation, including:
+
+- project creation;
+- project rename, description, visibility, or close/delete changes;
+- field creation or field-option creation;
+- repository or team linking;
+- item creation, item addition, item edits, or item deletion;
+- status, priority, size, sprint, estimate, or date updates;
+- automation, workflow, view, or permission changes.
+
+Approval is valid only for the latest visible proposal. Re-query relevant remote state immediately before each approved mutation. Stop and present a revised proposal if the target board, repository link, field list, or duplicate risk changed.
+
+Never close or delete a Project. Never delete fields or project items. Never create product issues, labels, milestones, pull requests, branches, commits, releases, requirements, architecture, implementation plans, or workflow-trace updates from this skill unless a separate owning workflow explicitly requires and approves that action.
+
+## Recreate, Do Not Copy
+
+Do not use `gh project copy` or any API operation that copies an existing Project. Use the reference Project only as evidence for a visible board specification.
+
+When using `gh`, the expected mutation sequence is:
+
+1. `gh project create --owner <owner> --title <title> --format json`
+2. inspect the created Project with `gh project view` and `gh project field-list`
+3. create only missing fields/options with `gh project field-create` or a reviewed GraphQL mutation
+4. link the Project to the repository with `gh project link <number> --owner <owner> --repo <owner/repo>`
+5. read back the Project, fields, and repository link
+
+If `gh project field-create` cannot create or modify a required field type or option, present the exact GraphQL mutation plan before using `gh api graphql`.
+
+## Proposal Requirements
+
+Before approval, show:
+
+- target owner and target repository;
+- Project title, visibility, and whether it will be linked to the repository;
+- the full status flow, including whether `Triage` is included;
+- fields/options to create and any fields expected to exist by default;
+- commands or API mutation types to be used, without exposing credentials;
+- duplicate Projects or repository-linked Projects found during inspection;
+- known limitations, especially fields/views/automations that cannot be recreated safely with available tools;
+- actions explicitly not included.
+
+Do not claim exact view layouts or automations were recreated unless they were inspected, deliberately specified, executed, and read back.
+
+## Execution Result
+
+After approved execution, report:
+
+- Project URL and number;
+- repository link status;
+- created or verified fields/options;
+- any skipped fields/views/automations and why;
+- commands or read-back evidence used for verification;
+- the next recommended SDLC workflow step.
+
+## Interaction With Other SDLC Skills
+
+This skill is optional infrastructure for repository planning. It should not become a required stage in `sdlc_docs/trace_workflow.md`.
+
+Use it before repository requirement synchronization when the developer wants a GitHub Project ready before issue creation or placement.
+
+After this skill creates and links a board, route back to `e-sync-repository-requirements` so approved requirements can be synchronized with issues and placed in the board.
+
+`e-sync-repository-requirements` remains responsible for product-story issue creation, issue reuse, issue body updates, and issue placement. This skill owns only Project board creation, field setup, repository linking, and board-level verification.
+
+`g-implement-repository-work`, `i-validate-user-story-completion`, `h-create-implementation-pull-request`, and `j-prepare-release-deployment` may read the board as context, but they must not mutate it unless their own instructions and explicit human approval allow that remote action.

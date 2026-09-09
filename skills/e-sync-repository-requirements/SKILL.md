@@ -222,6 +222,8 @@ Before approval, show:
 
 When the destination or effects are uncertain, do not create or modify the issue.
 
+If no repository-linked GitHub Project exists and the developer wants a board before issue creation or placement, recommend `create-github-project-board` and stop. Do not create or configure a Project from this synchronization skill. After the board is created and linked, resume repository synchronization and re-inspect the Project workflow before proposing issue placement.
+
 ### 10. Present a transient proposal
 
 Read `references/proposal-and-result-patterns.md` and present one concise proposal in the conversation. Do not save it as a repository file.
