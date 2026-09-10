@@ -16,6 +16,7 @@ Prepare the smallest repository foundation that lets developers implement approv
 - Treat approved Project Context, Product Requirements, Architecture, ADRs, Workflow Traceability, and the current repository as authoritative.
 - Start only after Project Context, Product Requirements, Architecture, and Repository preparation are complete.
 - Preserve approved product behavior and architecture boundaries.
+- Treat foundation completion as scoped to the active approved increment. When a later increment introduces a new runtime, dependency, local command, interface entry point, packaging concern, CI concern, or test structure, preserve prior foundation evidence as history and propose only the smallest foundation update slice needed for the active increment.
 - Do not implement user stories, business rules, product APIs, product persistence, or product UI behavior.
 - Create only technical scaffolding, configuration, developer commands, CI, and technical smoke tests.
 - Prefer existing viable tooling over replacement.
@@ -146,21 +147,22 @@ Keep Technical foundation at `Pending Approval` until the user explicitly accept
 1. Locate the repository root.
 2. Read approved context, requirements, architecture, ADRs, and workflow trace.
 3. Verify Architecture and Repository preparation are complete.
-4. Inspect manifests, source roots, tests, CI, and developer documentation.
-5. Run `scripts/inspect_technical_foundation.py` in read-only mode.
-6. Identify only the missing or contradictory foundation elements.
-7. Route product ambiguity to `c-manage-product-requirements` and material architecture conflicts to `d-design-product-architecture`.
-8. Define the smallest viable foundation using existing approved tooling.
-9. Define pytest, pytest-bdd, test categories, and technical smoke tests.
-10. Define reproducible commands, quality checks, minimal CI, and concise documentation.
-11. Present the exact local-change proposal and stop for approval.
-12. Re-read affected files and repository state after approval.
-13. Apply only the approved foundation changes without product behavior.
-14. Run repository commands and `scripts/validate_foundation.py`.
-15. Fix foundation defects without weakening valid tests or checks.
-16. Review the final diff against the approved proposal.
-17. Set Technical foundation to `Pending Approval` and request final acceptance.
-18. After explicit acceptance, set Technical foundation to `Complete` and hand off to `g-implement-repository-work` when installed.
+4. Determine whether the current foundation evidence covers the active approved increment or only historical superseded scope.
+5. Inspect manifests, source roots, tests, CI, and developer documentation.
+6. Run `scripts/inspect_technical_foundation.py` in read-only mode.
+7. Identify only the missing or contradictory foundation elements.
+8. Route product ambiguity to `c-manage-product-requirements` and material architecture conflicts to `d-design-product-architecture`.
+9. Define the smallest viable foundation using existing approved tooling.
+10. Define pytest, pytest-bdd, test categories, and technical smoke tests.
+11. Define reproducible commands, quality checks, minimal CI, and concise documentation.
+12. Present the exact local-change proposal and stop for approval.
+13. Re-read affected files and repository state after approval.
+14. Apply only the approved foundation changes without product behavior.
+15. Run repository commands and `scripts/validate_foundation.py`.
+16. Fix foundation defects without weakening valid tests or checks.
+17. Review the final diff against the approved proposal.
+18. Set Technical foundation to `Pending Approval` and request final acceptance.
+19. After explicit acceptance, set Technical foundation to `Complete` and hand off to `g-implement-repository-work` when installed.
 
 See `references/process-flowchart.md` for the matching visual workflow.
 

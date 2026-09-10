@@ -175,7 +175,7 @@ def test_inspector_is_read_only_and_toml_based() -> None:
 def test_workflow_matches_flowchart() -> None:
     skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
     flow_text = (SKILL_ROOT / "references" / "process-flowchart.md").read_text(encoding="utf-8")
-    for number in range(1, 19):
+    for number in range(1, 20):
         if f"{number}. " not in skill_text:
             raise AssertionError(f"Missing workflow step {number}")
         if f"{number}. " not in flow_text:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate SDLC workflow trace shape, statuses, and next-action identifiers."""
+"""Validate SDLC workflow trace shape, statuses, next actions, and stale increment state."""
 from __future__ import annotations
 
 import argparse
@@ -57,6 +57,18 @@ EXPECTED_ROWS = {
 HEADER = ["Item", "Type", "Status", "Current activity", "Evidence", "Missing or blocked", "Next action"]
 HYPHEN_TOKEN_RE = re.compile(r"\b([a-z][a-z0-9]*(?:-[a-z0-9]+)+)\b")
 SINGLE_LETTER_ALIAS_RE = re.compile(r"\b(?:Run|Continue)\s+([A-J])\b")
+WORK_ITEM_RE = re.compile(r"\b(ARCH|REQ|US)-(\d+)\b")
+HISTORICAL_INITIAL_RE = re.compile(
+    r"\b(?:initial-release|US-0001 through US-0005|issue #1|PR #2)\b",
+    re.IGNORECASE,
+)
+DOWNSTREAM_INCREMENT_ROWS = {
+    "Technical foundation",
+    "Implementation",
+    "User story validation",
+    "Pull request",
+    "Release deployment",
+}
 
 
 def split_row(line: str) -> list[str]:
@@ -83,6 +95,38 @@ def parse_trace(path: Path) -> tuple[list[dict[str, str]], list[str]]:
             continue
         rows.append(dict(zip(HEADER, cells, strict=True)))
     return rows, errors
+
+
+def row_text(row: dict[str, str]) -> str:
+    return " | ".join(row.get(column, "") for column in HEADER)
+
+
+def mentions_active_increment(text: str) -> bool:
+    normalized = text.casefold()
+    if "cr-0001" in normalized:
+        return True
+    for prefix, number in WORK_ITEM_RE.findall(text):
+        value = int(number)
+        if (
+            (prefix == "ARCH" and value >= 2)
+            or (prefix == "REQ" and value >= 2)
+            or (prefix == "US" and value >= 6)
+        ):
+            return True
+    return False
+
+
+def mentions_historical_initial_release_only(text: str) -> bool:
+    historical = bool(HISTORICAL_INITIAL_RE.search(text))
+    for prefix, number in WORK_ITEM_RE.findall(text):
+        value = int(number)
+        if (
+            (prefix == "ARCH" and value == 1)
+            or (prefix == "REQ" and value == 1)
+            or (prefix == "US" and 1 <= value <= 5)
+        ):
+            historical = True
+    return historical and not mentions_active_increment(text)
 
 
 def validate(path: Path, require_expected_rows: bool) -> dict[str, Any]:
@@ -133,6 +177,24 @@ def validate(path: Path, require_expected_rows: bool) -> dict[str, Any]:
             "completed Initial requirements; review approved requirements evidence "
             "before repairing the handoff"
         )
+
+    active_increment_known = any(
+        mentions_active_increment(row_text(row))
+        for row in rows
+        if row["Item"] in {"Initial requirements", "Architecture", "Repository preparation"}
+    )
+    if active_increment_known:
+        for item in DOWNSTREAM_INCREMENT_ROWS:
+            row = row_by_name.get(item)
+            if not row or row["Status"] != "Complete":
+                continue
+            text = row_text(row)
+            if mentions_historical_initial_release_only(text):
+                errors.append(
+                    f"{item}: complete evidence covers only historical initial-release scope "
+                    "while an active later increment is present; preserve historical evidence "
+                    "but repair the row to show the active increment status"
+                )
     implementation_status = row_by_name.get("Implementation", {}).get("Status")
     validation_status = row_by_name.get("User story validation", {}).get("Status")
     pull_request_status = row_by_name.get("Pull request", {}).get("Status")

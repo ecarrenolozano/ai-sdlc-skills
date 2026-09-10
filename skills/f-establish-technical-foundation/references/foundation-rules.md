@@ -19,6 +19,12 @@ Do not create product modules, speculative abstractions, placeholder APIs, or fa
 
 Retain the repository's current package manager, build backend, test runner, and quality tools when they satisfy the approved architecture and constraints. Propose a replacement only when the current choice is unusable or contradictory.
 
+## Scope foundation to the active increment
+
+A completed foundation for a prior release is historical evidence, not automatic proof that a later approved increment is ready. When the active increment adds a new interface, runtime dependency, developer command, packaging concern, CI concern, or test structure, propose an update slice limited to those foundation needs.
+
+Do not erase or downgrade the prior foundation evidence. Explain that the previous foundation remains valid for its delivered scope, and identify only what is missing for the active increment.
+
 ## Separate durable decisions from operational evidence
 
 Record durable setup instructions in `README.md`, `docs/development.md`, and `tests/README.md`. Keep command output and temporary comparison notes in the conversation rather than creating permanent reports.

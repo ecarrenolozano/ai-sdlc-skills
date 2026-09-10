@@ -21,13 +21,14 @@ Guide the developer continuously while keeping workflow ceremony behind the scen
 - Allow controlled overlap between `Implementation` and `Pull request` when the pull request is opened for iterative review and downstream release gating remains inactive.
 - Allow controlled overlap between `Implementation` and `Release deployment` when deployment work is limited to approved local release-preparation evidence.
 - When routing a change that supersedes approved scope, require the owning stage to preserve prior approved artifacts as self-contained history in the current controlled documents. Do not route in a way that depends on downstream agents recovering approved content from git history alone.
+- Treat workflow completion as scoped to the active approved increment. When upstream documents show a later active requirement, change request, or architecture baseline, downstream rows that cite only superseded issues, stories, pull requests, or validation evidence are historical evidence, not completion evidence for the active increment.
 
 ## Control Loop
 
 1. Locate the repository root.
 2. If the trace is absent, run the bootstrap workflow and then resume this loop.
 3. Run `scripts/validate_workflow_trace.py --require-expected-rows`.
-4. If validation reports ambiguity or inconsistency, read `references/workflow-routing-policy.md`, explain the issue in plain language, and propose only permitted repairs.
+4. If validation reports ambiguity, stale active-increment evidence, or inconsistency, read `references/workflow-routing-policy.md`, explain the issue in plain language, and propose only permitted repairs.
 5. Select the highest-priority gate: blocked information, clarification, human approval, active work, then the first eligible unstarted stage.
 6. Route internally to the owning installed skill and follow that skill completely, including its approvals and deterministic validators.
 7. Re-run trace validation after any approved workflow mutation.
@@ -93,7 +94,7 @@ If these conditions are not met, keep release deployment downstream and non-acti
 
 ## Repair Boundary
 
-After explicit approval, repair only missing standard rows, obsolete internal identifiers, unsupported downstream handoff states with no evidence, or blocker wording already proven by an owning artifact. Never mark another stage complete, create approval evidence, rewrite history, or mutate GitHub, version control, release, or deployment state.
+After explicit approval, repair only missing standard rows, obsolete internal identifiers, unsupported downstream handoff states with no evidence, active-increment status drift already proven by controlled artifacts, or blocker wording already proven by an owning artifact. Never mark another stage complete, create approval evidence, rewrite history, or mutate GitHub, version control, release, or deployment state.
 
 ## Progressive Resources
 

@@ -12,6 +12,19 @@ When several rows need attention, recommend in this order:
 
 If multiple active increments exist, preserve their row boundaries and report the ambiguity instead of collapsing them into the initial-release row.
 
+## Active Increment Evidence
+
+When approved requirements, architecture, or repository preparation evidence names a later active increment, downstream completion rows must be interpreted against that active increment. Evidence for superseded stories, historical issues, or earlier pull requests remains valuable audit history, but it does not prove that the active increment is implemented, validated, reviewed, or released.
+
+If a downstream row is `Complete` and its evidence covers only superseded initial-release work while a later active increment is present, propose a trace repair that:
+
+- preserves the historical evidence in the row text;
+- changes the active status to the real active-increment state;
+- names the active increment blocker, such as foundation update not started, implementation not complete, validation not complete, or pull request not complete;
+- routes to the first downstream stage that still needs work for the active increment.
+
+Do not reopen closed issues, rewrite historical approvals, or mark the active increment complete as part of this repair. The repair is administrative and must be approved before writing.
+
 ## Controlled Overlap Exception
 
 One overlap is permitted without ambiguity handling:

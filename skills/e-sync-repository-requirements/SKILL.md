@@ -324,14 +324,17 @@ Reconstruct remote relationships on every run.
 
 Modify `trace_workflow.md` only when a stable process milestone actually changes, such as the first approved repository handoff. Show the exact local edit in the proposal and require approval. Do not use it for recurring issue status, coverage, counts, or project placement.
 
+When repository synchronization creates or verifies work for a later active increment after a prior release is already complete, review downstream trace rows before handoff. If `Technical foundation`, `Implementation`, `User story validation`, `Pull request`, or `Release deployment` rows cite only superseded issues, stories, pull requests, or validation evidence, propose an approved trace repair that preserves that history while showing the active increment's real downstream status. Do not route to implementation or release from historical completion evidence alone.
+
 ## Handoff After Synchronization
 
 After approved repository work is synchronized:
 
-- If Technical foundation is not `Complete`, recommend `f-establish-technical-foundation` and stop.
+- If Technical foundation is not `Complete` for the active increment, recommend `f-establish-technical-foundation` and stop.
+- If Technical foundation is historically `Complete` but the active increment adds a new interface, runtime, dependency, command, packaging need, CI concern, or test structure, recommend `f-establish-technical-foundation` for an update slice and stop.
 - Do not include foundation setup inside a product-story implementation issue.
 - Do not repeatedly establish the foundation for every story.
-- Route to implementation only when Technical foundation is already `Complete` and an implementation workflow exists; otherwise state that implementation workflow creation or installation is required.
+- Route to implementation only when Technical foundation is already `Complete` for the active increment and an implementation workflow exists; otherwise state that implementation workflow creation or installation is required.
 
 ## Requirement and architecture changes
 
