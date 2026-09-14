@@ -1,0 +1,14 @@
+[project]
+site_name = "AI SDLC Skills"
+site_url = "https://ecarrenolozano.github.io/ai-sdlc-skills/"
+docs_dir = "docs"
+site_dir = "site"
+nav = [
+  { "Home" = "index.md" },
+  { "Workflow" = "workflow.md" },
+  { "Skills" = "skills/index.md" },
+  { "Authoring" = "authoring.md" },
+  { "Installation" = "installation.md" },
+  { "Changelog" = "changelog.md" },
+  { "GitHub" = "https://github.com/ecarrenolozano/ai-sdlc-skills" },
+]

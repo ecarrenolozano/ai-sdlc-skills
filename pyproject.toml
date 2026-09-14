@@ -1,0 +1,15 @@
+[project]
+name = "ai-sdlc-skills"
+version = "0.0.0"
+description = "Reusable AI agent skills for guiding Python projects through a structured software development lifecycle."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+docs = [
+  "zensical",
+]
+
+[tool.uv]
+package = false

@@ -113,6 +113,29 @@ to safely update the local skills.
 
 The updater should detect locally modified skills and avoid overwriting them silently.
 
+## Documentation site
+
+The repository includes a Zensical documentation site under `docs/`.
+
+Skill-specific documentation is generated from the canonical `skills/*/SKILL.md` files and each skill directory's process flowcharts, references, scripts, assets, agents, and golden examples:
+
+```bash
+python3 scripts/generate_docs.py
+```
+
+Use the check mode in CI or before opening a pull request:
+
+```bash
+python3 scripts/generate_docs.py --check
+```
+
+Preview or build the site with Zensical:
+
+```bash
+zensical serve
+zensical build --clean --strict
+```
+
 ## Relationship with the Cookiecutter template
 
 This repository contains the skills.
